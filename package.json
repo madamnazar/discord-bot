@@ -1,0 +1,19 @@
+{
+  "name": "madamnazario-bot",
+  "version": "1.0.0",
+  "description": "An utility bot for the discord server of madamnazar.io",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukyvj/madamnazario-bot.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "request": "2.81.0"
+  }
+}
