@@ -52,7 +52,6 @@ client.on("message", message => {
 });
 
 // Reactions
-// 647830821872336926
 const XBOXID = "647803189252587530";
 const PlayStationID = "647803317161951242";
 const PCID = "647802965079621658";
