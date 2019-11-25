@@ -60,43 +60,43 @@ module.exports = {
   name: "nazar",
   description: "Respond with Madam Nazar location",
   execute(message, args) {
-    // fetch(
-    //   "https://madam-nazar-location-api.herokuapp.com/location/current"
-    // ).then(function(response) {
-    //   var contentType = response.headers.get("content-type");
-    //   if (contentType && contentType.indexOf("application/json") !== -1) {
-    //     return response
-    //       .json()
-    //       .then(function(json) {
-    //         const botAnswer = `🔎 In the region of **${capitalize(
-    //           json.data.location.region.precise
-    //         )}**, in the territory of **${capitalize(
-    //           json.data.location.region.name
-    //         )}**.`;
+    fetch(
+      "https://madam-nazar-location-api.herokuapp.com/location/current"
+    ).then(function(response) {
+      var contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return response
+          .json()
+          .then(function(json) {
+            const botAnswer = `🔎 In the region of **${capitalize(
+              json.data.location.region.precise
+            )}**, in the territory of **${capitalize(
+              json.data.location.region.name
+            )}**.`;
 
-    //         const embed = new RichEmbed()
-    //           .setTitle(`🚩 Madam Nazar was found!`)
-    //           .setURL("https://madamnazar.io/")
-    //           .addField("Cycle/Day", getCycleDay(), true)
-    //           .addField("🗓 Today ", `${formatDateTweet(new Date())}`, true)
-    //           .setColor(getColor(getCycleDay()))
-    //           .setImage(json.data.location.image.normal.full)
-    //           .setDescription(botAnswer)
-    //           .setTimestamp()
-    //           .setFooter(
-    //             "🔮 Yσυ'ɾҽ ɳσƚ ყҽƚ ƚσσ ɱყʂƚҽɾισυʂ ϝσɾ ɱყ ԋυɱႦʅҽ ƈσɱραɳყ"
-    //           );
-    //         message.channel.send(embed);
-    //       })
-    //       .catch(err => {
-    //         console.log(err);
-    //         message.channel.send(`⚠️ Problem occured: **${err}**`);
-    //       });
-    //   } else {
-    //     message.channel.send(
-    //       "No JSON found! Please contact @iamfabriceg#6920 or @LukyVj#1181"
-    //     );
-    //   }
-    // });
+            const embed = new RichEmbed()
+              .setTitle(`🚩 Madam Nazar was found!`)
+              .setURL("https://madamnazar.io/")
+              .addField("Cycle/Day", getCycleDay(), true)
+              .addField("🗓 Today ", `${formatDateTweet(new Date())}`, true)
+              .setColor(getColor(getCycleDay()))
+              .setImage(json.data.location.image.normal.full)
+              .setDescription(botAnswer)
+              .setTimestamp()
+              .setFooter(
+                "🔮 Yσυ'ɾҽ ɳσƚ ყҽƚ ƚσσ ɱყʂƚҽɾισυʂ ϝσɾ ɱყ ԋυɱႦʅҽ ƈσɱραɳყ"
+              );
+            message.channel.send(embed);
+          })
+          .catch(err => {
+            console.log(err);
+            message.channel.send(`⚠️ Problem occured: **${err}**`);
+          });
+      } else {
+        message.channel.send(
+          "No JSON found! Please contact @iamfabriceg#6920 or @LukyVj#1181"
+        );
+      }
+    });
   }
 };

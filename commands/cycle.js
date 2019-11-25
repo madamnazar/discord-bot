@@ -60,12 +60,12 @@ module.exports = {
   name: "cycle",
   description: "Respond with Current cycle",
   execute(message, args) {
-    // const embed = new RichEmbed()
-    //   .setURL("https://madamnazar.io/")
-    //   .addField("Cycle/Day", `**${getCycleDay()}**`, true)
-    //   .setColor(getColor(getCycleDay()))
-    //   .setTimestamp()
-    //   .setFooter("Find more resources on MadamNazar.io");
-    // message.channel.send(embed);
+    const embed = new RichEmbed()
+      .setURL("https://madamnazar.io/")
+      .addField("Cycle/Day", `**${getCycleDay()}**`, true)
+      .setColor(getColor(getCycleDay()))
+      .setTimestamp()
+      .setFooter("Find more resources on MadamNazar.io");
+    message.channel.send(embed);
   }
 };
