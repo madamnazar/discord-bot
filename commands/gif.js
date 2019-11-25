@@ -3,7 +3,7 @@ module.exports = {
   name: "gif",
   description: "gif",
   execute(message, args) {
-    var query = "cowboy";
+    var query = "red dead";
     var optionalParams = {};
     imgur
       .search(query, optionalParams)
