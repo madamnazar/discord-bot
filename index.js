@@ -82,7 +82,7 @@ client.on("message", message => {
 
   // Points system
   // 
-  if (message.content === "/points") {
+  if (message.content === `${process.env.PREFIX}points`) {
     return message.channel.send(
       `You currently have **${score.points}** points and are level **${score.level}**!`
     );
@@ -133,7 +133,7 @@ client.on("message", message => {
   //   );
   // }
 
-  if (message.content === "/leaderboard") {
+  if (message.content === `${process.env.PREFIX}leaderboard`) {
     const top10 = sql
       .prepare(
         "SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;"
