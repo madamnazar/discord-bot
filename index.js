@@ -157,11 +157,12 @@ client.on("message", message => {
   }
 
   // Welcome message
+  const newUsers = new Discord.Collection();
   client.on("guildMemberAdd", member => {
     const guild = member.guild;
     newUsers.set(member.id, member.user);
 
-    if (newUsers.size > 3) {
+    if (newUsers.size > 2) {
       const defaultChannel = guild.channels.find(channel =>
         channel.permissionsFor(guild.me).has("SEND_MESSAGES")
       );
