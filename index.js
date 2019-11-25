@@ -54,123 +54,31 @@ client.on("ready", () => {
 
 // Commands
 client.on("message", message => {
-  let score;
-  if (message.guild) {
-    score = client.getScore.get(message.author.id, message.guild.id);
-    if (!score) {
-      score = {
-        id: `${message.guild.id}-${message.author.id}`,
-        user: message.author.id,
-        guild: message.guild.id,
-        points: 0,
-        level: 1
-      };
-    }
-    score.points++;
-    const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
-    console.log(score.points);
-    if (score.level < curLevel) {
-      score.level++;
-      message.reply(
-        `You've leveled up to level **${curLevel}**! Ain't that dandy?`
-      );
-    }
-    client.setScore.run(score);
-  }
-  const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
-
-  // Points system
-  // 
-  if (message.content === `${process.env.PREFIX}points`) {
-    return message.channel.send(
-      `You currently have **${score.points}** points and are level **${score.level}**!`
-    );
-  }
-
-  // if (message.content === "/give") {
-  //   // Limited to guild owner - adjust to your own preference!
-  //   if (message.author.username !== "LukyVj") {
-  //     return message.channel.send(
-  //       "You're not the boss of me, you can't do that!"
-  //     );
-  //   }
-
-  //   const user = message.mentions.users.first() || client.users.get(args[0]);
-
-  //   if (!user)
-  //     return message.channel.send("You must mention someone or give their ID!");
-
-  //   const pointsToAdd = parseInt(args[1], 10);
-  //   if (!pointsToAdd)
-  //     return message.channel.send(
-  //       "You didn't tell me how many points to give..."
-  //     );
-
-  //   // Get their current points.
-  //   let userscore = client.getScore.get(user.id, message.guild.id);
-  //   // It's possible to give points to a user we haven't seen, so we need to initiate defaults here too!
-  //   if (!userscore) {
-  //     userscore = {
-  //       id: `${message.guild.id}-${user.id}`,
-  //       user: user.id,
+  // let score;
+  // if (message.guild) {
+  //   score = client.getScore.get(message.author.id, message.guild.id);
+  //   if (!score) {
+  //     score = {
+  //       id: `${message.guild.id}-${message.author.id}`,
+  //       user: message.author.id,
   //       guild: message.guild.id,
   //       points: 0,
   //       level: 1
   //     };
   //   }
-  //   userscore.points += pointsToAdd;
-
-  //   // We also want to update their level (but we won't notify them if it changes)
-  //   let userLevel = Math.floor(0.1 * Math.sqrt(score.points));
-  //   userscore.level = userLevel;
-
-  //   // And we save it!
-  //   client.setScore.run(userscore);
-
-  //   return message.channel.send(
-  //     `${user.tag} has received ${pointsToAdd} points and now stands at ${userscore.points} points.`
-  //   );
+  //   score.points++;
+  //   const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+  //   if (score.level < curLevel) {
+  //     score.level++;
+  //     message.reply(
+  //       `You've leveled up to level **${curLevel}**! Ain't that dandy?`
+  //     );
+  //   }
+  //   client.setScore.run(score);
   // }
 
-  if (message.content === `${process.env.PREFIX}leaderboard`) {
-    const top10 = sql
-      .prepare(
-        "SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;"
-      )
-      .all(message.guild.id);
-
-    // Now shake it and show it! (as a nice embed, too!)
-    const embed = new Discord.RichEmbed()
-      .setTitle("Leaderboard")
-      .setAuthor(client.user.username, client.user.avatarURL)
-      .setDescription("Our top 10 points leaders!")
-      .setColor(0x00ae86);
-
-    for (const data of top10) {
-      embed.addField(
-        client.users.get(data.user).tag,
-        `${data.points} points (level ${data.level})`
-      );
-    }
-    return message.channel.send({ embed });
-  }
-
-  // Welcome message
-  const newUsers = new Discord.Collection();
-  client.on("guildMemberAdd", member => {
-    const guild = member.guild;
-    newUsers.set(member.id, member.user);
-
-    if (newUsers.size > 2) {
-      const defaultChannel = guild.channels.find(channel =>
-        channel.permissionsFor(guild.me).has("SEND_MESSAGES")
-      );
-      const userlist = newUsers.map(u => u.toString()).join(" ");
-      defaultChannel.send("Welcome our new users!\n" + userlist);
-      newUsers.clear();
-    }
-  });
+  const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
+  const commandName = args.shift().toLowerCase();
 
   // GET OTHER COMMANDS PER FILE
   if (!message.content.startsWith(process.env.PREFIX) || message.author.bot)

@@ -1,6 +1,5 @@
 const client = require("../index");
 const GuildId = "638718661091262464";
-const list = client.guilds.get(GuildId);
 
 
 const serverMsg = (message, guild, allmembers) => `
@@ -13,12 +12,7 @@ module.exports = {
   name: "server",
   description: "Server information",
   execute(message, args) {
-    message.channel.send(
-      serverMsg(
-        message,
-        [...client.guilds.get(GuildId).members],
-      )
-    );
+    message.channel.send(serverMsg(message, message.guild.members));
   }
 };
 
