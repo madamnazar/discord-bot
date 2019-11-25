@@ -80,6 +80,8 @@ client.on("message", message => {
   const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
+  // Points system
+  // 
   if (message.content === "/points") {
     return message.channel.send(
       `You currently have **${score.points}** points and are level **${score.level}**!`
@@ -153,6 +155,21 @@ client.on("message", message => {
     }
     return message.channel.send({ embed });
   }
+
+  // Welcome message
+  client.on("guildMemberAdd", member => {
+    const guild = member.guild;
+    newUsers.set(member.id, member.user);
+
+    if (newUsers.size > 3) {
+      const defaultChannel = guild.channels.find(channel =>
+        channel.permissionsFor(guild.me).has("SEND_MESSAGES")
+      );
+      const userlist = newUsers.map(u => u.toString()).join(" ");
+      defaultChannel.send("Welcome our new users!\n" + userlist);
+      newUsers.clear();
+    }
+  });
 
   // GET OTHER COMMANDS PER FILE
   if (!message.content.startsWith(process.env.PREFIX) || message.author.bot)
