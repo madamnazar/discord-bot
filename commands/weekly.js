@@ -10,8 +10,8 @@ const capitalize = s => {
 
 const defineEmoji = name => {
     switch(name) {
-        case 'bowmans':
-            return "arrowhead";
+        case 'foundation':
+            return "white_small_square";
             break
         default: 
             return false;
@@ -31,15 +31,15 @@ module.exports = {
           .json()
           .then(function(json) {
             const emoji = client.emojis.find(
-              emoji => emoji.name === defineEmoji(json.data.name)
+              emoji => emoji.name === "white_small_square"
             );
 
             const botAnswer = `${json.data.content.map(
               item =>
-                console.log(item) ||
-                `${emoji} ${capitalize(
+         
+                `:white_small_square: ${capitalize(
                   item.item.replace("_", " ").split(" ")[0]
-                )} ${capitalize(item.item.replace("_", " ").split(" ")[1])}\n`
+                )} ${capitalize(item.item.replace(/_/g, " ").split(" ")[1])}\n`
             )}`.replace(/,/g, "");
 
             const embed = new RichEmbed()
