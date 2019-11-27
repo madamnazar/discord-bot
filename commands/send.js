@@ -9,20 +9,19 @@ module.exports = {
       const chan = message.content.split(")")[0].replace("(", "");
       const corpus = message.content.split(")")[1];
       const channel = client.channels.find(
-        x => x.name === chan.replace("/send ", "")
+        x => x.name === chan.replace(process.env.PREFIX + "send ", "")
       );
 
-      
       if (corpus.includes("|")) {
         const embed = new RichEmbed()
           .setTitle(`Information`)
           .setDescription(corpus.split("|")[1]);
         client.channels
-          .find(x => x.name === chan.replace("/send ", ""))
+          .find(x => x.name === chan.replace(process.env.PREFIX + "send ", ""))
           .send(embed);
       } else {
         client.channels
-          .find(x => x.name === chan.replace("/send ", ""))
+          .find(x => x.name === chan.replace(process.env.PREFIX + "send ", ""))
           .send(corpus);
       }
     }
