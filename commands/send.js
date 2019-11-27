@@ -8,9 +8,6 @@ module.exports = {
     if (message.channel.name === "nazar-bot-controller") {
       const chan = message.content.split(")")[0].replace("(", "");
       const corpus = message.content.split(")")[1];
-      const channel = client.channels.find(
-        x => x.name === chan.replace(process.env.PREFIX + "send ", "")
-      );
 
       if (corpus.includes("|")) {
         const embed = new RichEmbed()
