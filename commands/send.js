@@ -17,11 +17,11 @@ module.exports = {
           .setTitle(`Information`)
           .setDescription(corpus.split("|")[1]);
         client.channels
-          .find(x => x.name === chan.replace(process.env.PREFIX + "send ", ""))
+          .find(x => x.name === chan.replace(`${process.env.PREFIX}send `, ""))
           .send(embed);
       } else {
         client.channels
-          .find(x => x.name === chan.replace(process.env.PREFIX + "send ", ""))
+          .find(x => x.name === chan.replace(`${process.env.PREFIX}send `, ""))
           .send(corpus);
       }
     }
