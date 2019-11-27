@@ -12,13 +12,18 @@ module.exports = {
         x => x.name === chan.replace("/send ", "")
       );
 
+      
       if (corpus.includes("|")) {
         const embed = new RichEmbed()
           .setTitle(`Information`)
           .setDescription(corpus.split("|")[1]);
-        channel.send(embed);
+        client.channels
+          .find(x => x.name === chan.replace("/send ", ""))
+          .send(embed);
       } else {
-        channel.send(corpus);
+        client.channels
+          .find(x => x.name === chan.replace("/send ", ""))
+          .send(corpus);
       }
     }
   }
