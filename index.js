@@ -2,13 +2,11 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const client = new Discord.Client();
 const newUsers = new Discord.Collection();
-
+client.commands = new Discord.Collection();
 
 module.exports = client;
 
 require("dotenv").config();
-
-client.commands = new Discord.Collection();
 
 const commandFiles = fs
   .readdirSync("./commands")
