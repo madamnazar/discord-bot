@@ -1,11 +1,11 @@
 const fetch = require("node-fetch");
 const { Attachment, RichEmbed } = require("discord.js");
-const capitalize = s => {
+const capitalize = (s) => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-const formatDateTweet = date => {
+const formatDateTweet = (date) => {
   let newDate = date.toDateString().slice(4);
   newDate.substring(0, date.length - 5);
 
@@ -38,7 +38,7 @@ const getCycleDay = () => {
   return dayCycle;
 };
 
-const getColor = day => {
+const getColor = (day) => {
   let color;
   switch (day) {
     case 1:
@@ -62,12 +62,13 @@ module.exports = {
   execute(message, args) {
     fetch(
       "https://madam-nazar-location-api.herokuapp.com/location/current"
-    ).then(function(response) {
+    ).then(function (response) {
       var contentType = response.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1) {
         return response
           .json()
-          .then(function(json) {
+          .then(function (json) {
+            console.log(json);
             const botAnswer = `🔎 In the region of **${capitalize(
               json.data.location.region.precise
             )}**, in the territory of **${capitalize(
@@ -77,10 +78,9 @@ module.exports = {
             const embed = new RichEmbed()
               .setTitle(`🚩 Madam Nazar was found!`)
               .setURL("https://madamnazar.io/")
-              .addField("Cycle/Day", getCycleDay(), true)
               .addField("🗓 Today ", `${formatDateTweet(new Date())}`, true)
               .setColor(getColor(getCycleDay()))
-              .setImage(json.data.location.image.normal.full)
+              .setImage(json.data.location.image)
               .setDescription(botAnswer)
               .setTimestamp()
               .setFooter(
@@ -88,7 +88,7 @@ module.exports = {
               );
             message.channel.send(embed);
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err);
             message.channel.send(`⚠️ Problem occured: **${err}**`);
           });
@@ -98,5 +98,5 @@ module.exports = {
         );
       }
     });
-  }
+  },
 };

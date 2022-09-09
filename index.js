@@ -10,7 +10,7 @@ require("dotenv").config();
 
 const commandFiles = fs
   .readdirSync("./commands")
-  .filter(file => file.endsWith(".js"));
+  .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
@@ -23,8 +23,12 @@ client.on("ready", () => {
 });
 
 // Commands
-client.on("message", message => {
+client.on("message", (message) => {
+  console.log("message");
 
+  if (message.content.startsWith("ping")) {
+    message.channel.send("pong!");
+  }
   const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
